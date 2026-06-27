@@ -167,3 +167,4 @@ Python | Django | Full Stack Developer
 ## License
 
 This project is developed for educational and portfolio purposes.
+
