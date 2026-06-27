@@ -168,3 +168,98 @@ Python | Django | Full Stack Developer
 
 This project is developed for educational and portfolio purposes.
 
+## 📸 Project Screenshots
+
+### 🏠 Home Page
+
+![Home](screenshots/1_home.png)
+
+---
+
+### 🛍️ Shop Page
+
+![Shop](screenshots/2_shop.png)
+
+---
+
+### 🛒 Shopping Cart
+
+![Cart](screenshots/3_cart.png)
+
+---
+
+### 📦 My Orders
+
+![My Orders](screenshots/4_my_orders.png)
+
+---
+
+### 👨‍💼 Seller Dashboard
+
+![Seller Dashboard](screenshots/5_seller_index.png)
+
+---
+
+### 📋 Seller Orders
+
+![Seller Orders](screenshots/6_seller_orders.png)
+
+---
+
+### 📦 Seller Products
+
+![Seller Products](screenshots/7_seller_products.png)
+
+---
+
+### 📊 Seller Analytics
+
+![Seller Analytics](screenshots/8_seller_analytics.png)
+
+---
+
+### 👤 Seller Profile
+
+![Seller Profile](screenshots/9_seller_profile.png)
+
+---
+
+### 🛠️ Admin Dashboard
+
+![Admin Dashboard](screenshots/10_admin_dashboard.png)
+
+---
+
+### 👥 Admin Users
+
+![Admin Users](screenshots/11_admin_users.png)
+
+---
+
+### 🏪 Admin Sellers
+
+![Admin Sellers](screenshots/12_admin_sellers.png)
+
+---
+
+### 📦 Admin Orders
+
+![Admin Orders](screenshots/13_admin_orders.png)
+
+---
+
+### 🛍️ Admin Products
+
+![Admin Products](screenshots/14_admin_products.png)
+
+---
+
+### 📈 Admin Analytics
+
+![Admin Analytics](screenshots/15_admin_analytics.png)
+
+---
+
+### 📩 Contact Messages
+
+![Contact Messages](screenshots/16_admin_contact_messages.png)
