@@ -263,3 +263,8 @@ This project is developed for educational and portfolio purposes.
 ### 📩 Contact Messages
 
 ![Contact Messages](screenshots/16_admin_contact_messages.png)
+
+
+## Acknowledgements
+
+The frontend UI is based on the open-source **Furni** template by **ThemeWagon** and has been customized and integrated with a complete Django backend, authentication system, seller/admin dashboards, business logic, and database functionality developed as part of this project.
