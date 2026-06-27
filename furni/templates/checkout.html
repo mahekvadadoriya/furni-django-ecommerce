@@ -1,0 +1,356 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+
+		<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Checkout</h1>
+							</div>
+						</div>
+						<div class="col-lg-7">
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+				{% if messages %}
+
+					{% for message in messages %}
+
+						<div class="
+							alert
+							{% if message.tags == 'error' %}
+								alert-danger
+							{% elif message.tags == 'success' %}
+								alert-success
+							{% elif message.tags == 'warning' %}
+								alert-warning
+							{% else %}
+								alert-info
+							{% endif %}
+						">
+
+							{{ message }}
+
+						</div>
+
+					{% endfor %}
+
+				{% endif %}
+		<div class="untree_co-section">
+		    <div class="container">
+		      <div class="row mb-5">
+		        <div class="col-md-12">
+		          <!-- <div class="border p-4 rounded" role="alert">
+		            Returning customer? <a href="#">Click here</a> to login
+		          </div> -->
+		        </div>
+		      </div>
+		      <div class="row">
+		        <div class="col-md-6 mb-5 mb-md-0">
+		          <h2 class="h3 mb-3 text-black">Billing Details</h2>
+
+
+				<form action="{% url 'checkout' %}" method="POST">
+					{% csrf_token %}
+		          <div class="p-3 p-lg-5 border bg-white">
+		           
+		            <div class="form-group row">
+		              <div class="col-md-6">
+		                <label for="c_fname" class="text-black">First Name <span class="text-danger">*</span></label>
+		                <input type="text" class="form-control" id="c_fname" name="firstname" value="{{formdata.firstname}}">
+		              </div>
+		              <div class="col-md-6">
+		                <label for="c_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
+		                <input type="text" class="form-control" id="c_lname" name="lastname" value="{{formdata.lastname}}">
+		              </div>
+		            </div>
+
+
+		            <div class="form-group row">
+		              <div class="col-md-12">
+		                <label for="c_address" class="text-black">Address <span class="text-danger">*</span></label>
+		                <input type="text" class="form-control" id="c_address" name="address" placeholder="Street address" value="{{formdata.address}}">
+		              </div>
+		            </div>
+
+		            <!-- <div class="form-group mt-3">
+		              <input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
+		            </div> -->
+
+		            <div class="form-group row">
+		              <div class="col-md-6">
+		                <label for="c_state_country" class="text-black"> City <span class="text-danger">*</span></label>
+		                <input type="text" class="form-control" id="c_state_country" name="city" value="{{formdata.city}}">
+		              </div>
+					  <div class="col-md-6">
+		                <label for="c_postal_zip" class="text-black">  PinCode <span class="text-danger">*</span></label>
+		                <input type="number" class="form-control" id="c_postal_zip" name="pincode" value="{{formdata.pincode}}">
+		              </div>
+					  <div class="col-md-6">
+		                <label for="c_state_country" class="text-black">State  <span class="text-danger">*</span></label>
+		                <input type="text" class="form-control" id="c_state_country" name="state" value="{{formdata.state}}">
+		              </div>
+					 
+		              
+		            </div>
+					 <div class="form-group">
+							<label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+							<select id="c_country" name="country" class="form-control" >
+								<option value="1" disabled>Select a country</option>    
+								<option value="India">India</option>    
+								<option value="Germany">Germany</option>    
+								<option value="UK">UK</option>    
+								<option value="Canada">Canada</option>    
+								<option value="Albania">Albania</option>    
+								<option value="Bahrain">Bahrain</option>    
+								<option value="Colombia">Colombia</option>    
+								<option value="Dominican Republic">Dominican Republic</option>    
+							</select>
+						   </div>
+
+		            <div class="form-group row mb-5">
+		              
+		              <div class="col-md-6">
+		                <label for="c_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+		                <input type="text" class="form-control" id="c_phone" name="mobile" placeholder="Phone Number" value="{{formdata.mobile}}">
+		              </div>
+					  <div class="col-md-6">
+		                <label for="c_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+		                <input type="text" class="form-control" id="c_email_address" name="email" value="{{formdata.email}}">
+		              </div>
+		            </div>
+
+		            <!-- <div class="form-group">
+		              <label for="c_create_account" class="text-black" data-bs-toggle="collapse" href="#create_an_account" role="button" aria-expanded="false" aria-controls="create_an_account"><input type="checkbox" value="1" id="c_create_account"> Create an account?</label>
+		              <div class="collapse" id="create_an_account">
+		                <div class="py-2 mb-4">
+		                  <p class="mb-3">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</p>
+		                  <div class="form-group">
+		                    <label for="c_account_password" class="text-black">Account Password</label>
+		                    <input type="email" class="form-control" id="c_account_password" name="c_account_password" placeholder="">
+		                  </div>
+		                </div>
+		              </div>
+		            </div> -->
+
+
+		            <div class="form-group">
+		              <label for="c_ship_different_address" class="text-black" data-bs-toggle="collapse" href="#ship_different_address" role="button" aria-expanded="false" aria-controls="ship_different_address">
+						<input type="checkbox" value="1" {% if formdata.c_ship_different_address %} checked {% endif %} id="c_ship_different_address"> Ship To A Different Address?</label>
+		              <div class="collapse" id="ship_different_address">
+		                <div class="py-2">
+
+		               
+
+		                  <div class="form-group row">
+		                    <div class="col-md-6">
+		                      <label for="c_diff_fname" class="text-black">First Name <span class="text-danger">*</span></label>
+		                      <input type="text" class="form-control" id="c_diff_fname" name="shipping_firstname" value="{{formdata.shipping_firstname}}">
+		                    </div>
+		                    <div class="col-md-6">
+		                      <label for="c_diff_lname" class="text-black">Last Name <span class="text-danger">*</span></label>
+		                      <input type="text" class="form-control" id="c_diff_lname" name="shipping_lastname" value="{{formdata.shipping_firstname}}">
+		                    </div>
+		                  </div>
+
+
+		                  <div class="form-group row  mb-3">
+		                    <div class="col-md-12">
+		                      <label for="c_diff_address" class="text-black">Address <span class="text-danger">*</span></label>
+		                      <input type="text" class="form-control" id="c_diff_address" name="shipping_address" placeholder="Street address" value="{{formdata.shipping_address}}">
+		                    </div>
+		                  </div>
+
+							<!-- <div class="form-group">
+								<input type="text" class="form-control" placeholder="Apartment, suite, unit etc. (optional)">
+							</div> -->
+
+		                  
+						<div class="form-group row">
+						<div class="col-md-6">
+							<label for="c_state_country" class="text-black"> City <span class="text-danger">*</span></label>
+							<input type="text" class="form-control" id="c_state_country" name="shipping_city" value="{{formdata.shipping_city}}">
+						</div>
+						<div class="col-md-6">
+							<label for="c_postal_zip" class="text-black">  PinCode <span class="text-danger">*</span></label>
+							<input type="number" class="form-control" id="c_postal_zip" name="shipping_pincode" value="{{formdata.shipping_pincode}}">
+						</div>
+						<div class="col-md-6">
+							<label for="c_state_country" class="text-black">State  <span class="text-danger">*</span></label>
+							<input type="text" class="form-control" id="c_state_country" name="shipping_state" value="{{formdata.shipping_state}}">
+						</div>
+						
+						
+						</div>
+						   <div class="form-group">
+							<label for="c_country" class="text-black">Country <span class="text-danger">*</span></label>
+							<select id="c_country" name="shipping_country" class="form-control" >
+								<option value="1" disabled>Select a country</option>    
+								<option value="2">India</option>    
+								<option value="3">Germany</option>    
+								<option value="4">UK</option>    
+								<option value="5">Canada</option>    
+								<option value="6">Albania</option>    
+								<option value="7">Bahrain</option>    
+								<option value="8">Colombia</option>    
+								<option value="9">Dominican Republic</option>    
+							</select>
+						   </div>
+		                  <div class="form-group row mb-5">
+							 <div class="col-md-6">
+		                      <label for="c_diff_phone" class="text-black">Phone <span class="text-danger">*</span></label>
+		                      <input type="text" class="form-control" id="c_diff_phone" name="shipping_mobile" placeholder="Phone Number" value="{{formdata.shipping_mobile}}">
+		                    </div>
+		                    <div class="col-md-6">
+		                      <label for="c_diff_email_address" class="text-black">Email Address <span class="text-danger">*</span></label>
+		                      <input type="text" class="form-control" id="c_diff_email_address" name="shipping_email" value="{{formdata.shipping_email}}">
+		                    </div>
+		                   
+		                  </div>
+
+		                </div>
+
+		              </div>
+
+					
+		            </div>
+
+		            <!-- <div class="form-group">
+		              <label for="c_order_notes" class="text-black">Order Notes</label>
+		              <textarea name="c_order_notes" id="c_order_notes" cols="30" rows="5" class="form-control" placeholder="Write your notes here..."></textarea>
+		            </div> -->
+		          </div>
+		        </div>
+
+
+
+		        <div class="col-md-6">
+
+		         
+		          <div class="row mb-5">
+		            <div class="col-md-12">
+		              <h2 class="h3 mb-3 text-black">Your Order</h2>
+		              <div class="p-3 p-lg-5 border bg-white">
+		                <table class="table site-block-order-table mb-5">
+		                  <thead>
+		                    <th>Product</th>
+							<th>Quantity</th>
+							<th>Price</th>
+		                    <th>SubTotal</th>
+		                  </thead>
+		                  <tbody>
+							{% for i in cartdata%}
+		                    <tr>
+		                      <td>{{i.product.name}} <strong class="mx-2"></strong> </td>
+		                      <td class="text-black">{{i.quantity}}</td>
+							   <td class="text-black font-weight-bold"><strong>{{i.product.price}}</strong></td>
+							  <td class="text-black font-weight-bold"><strong>{{i.subtotal}}</strong></td>
+		                    </tr>
+							
+		                  
+							
+		                   
+							{% endfor %}
+							 <tr>
+								<br/><br/>	
+		                      <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
+		                      <td class="text-black font-weight-bold"><strong>{{total}}</strong></td>
+		                    </tr>
+		                  </tbody>
+		                </table>
+
+						 <h2 class="h3 mb-3 text-black">Payment Method</h2>
+							
+							<div class="form-check">
+								<input class="form-check-input"
+									type="radio"
+									name="payment_method"
+									value="cod" 
+									checked>
+
+								<label>Cash On Delivery</label>
+								</div>
+
+								<div class="form-check">
+									<input class="form-check-input"
+										type="radio"
+										name="payment_method"
+										value="UPI">
+
+									<label>Bank Transfer / UPI</label>
+								</div>
+
+								<div id="transaction-box" style="display:none;">
+									<label>Transaction ID / UPI ID</label>
+
+									<input type="text"
+										class="form-control"
+										name="transaction_id">
+								</div>
+									
+							<!-- <input type="checkbox" value="1" name="payment_mode" id="c_ship_different_address"> Bank Transer</label>
+						<input type="checkbox" value="1" name="payment_mode" id="c_ship_different_address"> COD</label>
+
+
+		                <div class="border p-3 mb-3">
+		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsebank" role="button" aria-expanded="false" aria-controls="collapsebank">Direct Bank Transfer</a></h3>
+
+		                  <div class="collapse" id="collapsebank">
+		                    <div class="py-2">
+								<input type="text" name="transcation_id">
+							</div>
+		                  </div>
+		                </div>
+
+		                <div class="border p-3 mb-3">
+		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsecheque" role="button" aria-expanded="false" aria-controls="collapsecheque">Cheque Payment</a></h3>
+
+		                  <div class="collapse" id="collapsecheque">
+		                    <div class="py-2">
+		                      <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+		                    </div>
+		                  </div>
+		                </div>
+
+		                <div class="border p-3 mb-5">
+		                  <h3 class="h6 mb-0"><a class="d-block" data-bs-toggle="collapse" href="#collapsepaypal" role="button" aria-expanded="false" aria-controls="collapsepaypal">Paypal</a></h3>
+
+		                  <div class="collapse" id="collapsepaypal">
+		                    <div class="py-2">
+		                      <p class="mb-0">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order won’t be shipped until the funds have cleared in our account.</p>
+		                    </div>
+		                  </div>
+		                </div> -->
+
+		                <div class="form-group">
+		                  <!-- <button class="btn btn-black btn-lg py-3 btn-block" onclick="window.location='{% url 'thankyou' %}'">Place Order</button> -->
+							<button type="submit" class="btn btn-black btn-lg py-3 btn-block">
+								Place Order
+							</button>
+						</div>
+
+		              </div>
+		            </div>
+		          </div>
+
+		        </div>
+		      </div>
+		      </form>
+		    </div>
+		  </div>
+
+{% endblock %}

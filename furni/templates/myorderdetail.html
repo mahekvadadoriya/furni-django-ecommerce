@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="order-detail-page">
+<div class="untree_co-section">
+    <div class="container">
+
+        <!-- Page Heading -->
+        <div class="row mb-5">
+            <div class="col-md-12">
+                <h2 class="h3 mb-3 text-black">
+                    Order Details
+                </h2>
+            </div>
+        </div>
+
+        <!-- Order Information -->
+        <div class="row mb-5">
+
+            <div class="col-md-6">
+
+                <div class="p-4 border rounded">
+
+                    <h4 class="mb-3">
+                        Order Information
+                    </h4>
+
+                    <p>
+                        <strong>Order ID :</strong>
+                        #{{ orderdata.id }}
+                    </p>
+
+                    <p>
+                        <strong>Order Date :</strong>
+                        {{ orderdata.created_at|date:"d M Y h:i A" }}
+                    </p>
+
+                    <p>
+                        <strong>Payment Method :</strong>
+                        {{ orderdata.payment.payment_method|upper }}
+                    </p>
+
+                    <p>
+                        <strong>Status :</strong>
+
+                        {% if orderdata.status == "pending" %}
+                            <span class="badge bg-warning text-dark">
+                                Pending
+                            </span>
+
+                        {% elif orderdata.status == "shipped" %}
+                            <span class="badge bg-info">
+                                Shipped
+                            </span>
+
+                        {% elif orderdata.status == "delivered" %}
+                            <span class="badge bg-success">
+                                Delivered
+                            </span>
+
+                        {% elif orderdata.status == "canceled" %}
+                            <span class="badge bg-danger">
+                                Cancelled
+                            </span>
+
+                        {% endif %}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Address Section -->
+
+        <div class="row mb-5">
+
+            <!-- Billing Address -->
+            <div class="col-md-6">
+
+                <div class="p-4 border rounded h-100">
+
+                    <h4 class="mb-3">
+                        Billing Address
+                    </h4>
+
+                    <p>
+                        {{ orderdata.firstname }}
+                        {{ orderdata.lastname }}
+                    </p>
+
+                    <p>
+                        {{ orderdata.address }}
+                    </p>
+
+                    <p>
+                        {{ orderdata.city }},
+                        {{ orderdata.state }}
+                    </p>
+
+                    <p>
+                        {{ orderdata.country }}
+                        -
+                        {{ orderdata.pincode }}
+                    </p>
+
+                    <p>
+                        {{ orderdata.mobile }}
+                    </p>
+
+                    <p>
+                        {{ orderdata.email }}
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Shipping Address -->
+            <div class="col-md-6">
+
+                <div class="p-4 border rounded h-100">
+
+                    <h4 class="mb-3">
+                        Shipping Address
+                    </h4>
+
+                    {% if orderdata.shipping_address %}
+
+                        <p>
+                            {{ orderdata.shipping_firstname }}
+                            {{ orderdata.shipping_lastname }}
+                        </p>
+
+                        <p>
+                            {{ orderdata.shipping_address }}
+                        </p>
+
+                        <p>
+                            {{ orderdata.shipping_city }},
+                            {{ orderdata.shipping_state }}
+                        </p>
+
+                        <p>
+                            {{ orderdata.shipping_country }}
+                            -
+                            {{ orderdata.shipping_pincode }}
+                        </p>
+
+                        <p>
+                            {{ orderdata.shipping_mobile }}
+                        </p>
+
+                        <p>
+                            {{ orderdata.shipping_email }}
+                        </p>
+
+                    {% else %}
+
+                        <p class="text-dark">
+                            Same as Billing Address
+                        </p>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Products -->
+
+        <div class="row mb-5">
+
+            <div class="col-md-12">
+
+                <h4 class="mb-3">
+                    Ordered Products
+                </h4>
+
+                <div class="table-responsive">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for i in orderdetaildata %}
+
+                            <tr>
+
+                                <td>
+                                    {{ i.product.name }}
+                                </td>
+
+                                <td>
+                                    ₹{{ i.price }}
+                                </td>
+
+                                <td>
+                                    {{ i.quantity }}
+                                </td>
+
+                                <td>
+                                    ₹{{ i.subtotal }}
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Total -->
+
+        <div class="row">
+
+            <div class="col-md-12 text-end">
+
+                <h3>
+                    Total :
+                    ₹{{ orderdata.totalpayment }}
+                </h3>
+
+            </div>
+
+        </div>
+
+        <!-- Action Buttons -->
+
+        <div class="row mt-4">
+
+            <div class="col-md-12 d-flex justify-content-end gap-3">
+
+                <a href="{% url 'myorders' %}"
+                   class="btn btn-black">
+                    Back To Orders
+                </a>
+
+                {% if orderdata.status == "pending" %}
+
+                <form action="{% url 'cancle_order_user' %}"
+                      method="POST">
+
+                    {% csrf_token %}
+
+                    <input type="hidden"
+                           name="order_id"
+                           value="{{ orderdata.id }}">
+
+                    <button type="submit"
+                            class="btn btn-danger">
+
+                        Cancel Order
+
+                    </button>
+
+                </form>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+</div>
+
+{% endblock %}

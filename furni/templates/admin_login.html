@@ -1,0 +1,90 @@
+{% extends 'admin_auth_base.html' %}
+
+{% block content %}
+
+<div class="card seller-card">
+
+   <div class="seller-header">
+
+    <i class="fas fa-store"></i>
+
+    <h3>Admin Login</h3>
+
+    <p>
+        Access your Admin dashboard
+    </p>
+
+</div>
+
+    <div class="card-body p-4">
+
+        {% if message %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endif %}
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Username
+                </label>
+
+                <input type="text"
+                       class="form-control"
+                       name="username"
+                       value="{{ formdata.username }}">
+
+            </div>
+
+            <div class="mb-4">
+
+                <label class="form-label">
+                    Password
+                </label>
+
+                <input type="password"
+                       class="form-control"
+                       name="password">
+
+            </div>
+
+            <button type="submit"
+                    class="btn seller-btn w-100">
+
+                Login
+
+            </button>
+
+        </form>
+
+        <div class="text-center mt-4">
+
+            Don't have a Admin account?
+
+            <a href="{% url 'admin_register' %}"
+               class="seller-link">
+
+                Register Here
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

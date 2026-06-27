@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="untree_co-section">
+    <div class="container">
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="
+                alert
+                {% if message.tags == 'error' %}
+                    alert-danger
+                {% elif message.tags == 'success' %}
+                    alert-success
+                {% elif message.tags == 'warning' %}
+                    alert-warning
+                {% else %}
+                    alert-info
+                {% endif %}
+            ">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-5 col-md-7">
+
+            <div class="card border-0 shadow-lg"
+                 style="
+                    border-top:5px solid #3b5d50;
+                    border-radius:15px;
+                 ">
+
+                <div class="card-body p-5">
+
+                    <h2 class="text-center mb-4 fw-bold"
+                        style="color:#3b5d50;">
+                        Register
+                    </h2>
+
+                    <form action="" method="POST">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Username
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                name="username"
+                                class="form-control"
+                                value="{{formdata.username}}">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">
+                                Email
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                class="form-control"
+                                value="{{formdata.email}}">
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">
+                                Password
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <input
+                                type="password"
+                                name="password"
+                                class="form-control">
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn w-100 py-3 fw-bold"
+                            style="
+                                background:#3b5d50;
+                                border:1px solid #3b5d50;
+                                color:white;
+                                border-radius:50px;
+                            ">
+
+                            Register
+
+                        </button>
+
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+
+                        <p class="mb-2">
+                            Already have an account?
+
+                            <a href="{% url 'loginpage' %}"
+                               class="fw-bold text-decoration-none"
+                               style="color:#3b5d50;">
+
+                                Log In
+
+                            </a>
+                        </p>
+
+                        <p class="mb-0">
+                            Want to sell products?
+
+                            <a href="{% url 'seller_register' %}"
+                               class="fw-bold text-decoration-none"
+                               style="color:#3b5d50;">
+
+                                Become a Seller
+
+                            </a>
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+{% endblock %}

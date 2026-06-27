@@ -1,0 +1,184 @@
+{% extends 'seller_base.html' %}
+{%  load static %}
+{% block content %}
+		
+
+   {% if orderdetails %}
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="w-100">
+            <div class="container-fluid p-4 p-md-5">
+                
+                <div class="mb-4">
+                    <a href=" {% url 'seller_orders' %}" class="text-decoration-none text-muted mb-3 d-inline-block"><i class="bi bi-arrow-left me-2"></i>Back to Orders</a>
+                    
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <h2 class="fw-bold page-title m-0">Order #ORD-{{orderdata.id}}</h2> 
+                            <span class="badge badge-success px-3 py-2 rounded-pill fs-6">{{orderdetails.order.status}}</span>
+                        </div>
+                        
+                        <!-- Order Actions -->
+                        <div class="d-flex gap-2">
+                             <h4 class="fw-bold page-title m-0">{{orderdata.status}}</h4>
+                            <div class="dropdown">
+                                <button class="btn btn-light px-3 fw-medium border shadow-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-arrow-repeat me-2"></i>Update Status
+                                </button>
+                                
+                                <ul class="dropdown-menu shadow-sm border-0 mt-2">
+                                    <li><a class="dropdown-item" href="{% url 'seller_update_order_status' orderdata.id  'processing' %}"><span class="badge badge-pending me-2">&nbsp;</span>processing</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'seller_update_order_status' orderdata.id  'shipped' %}"><span class="badge bg-primary me-2">&nbsp;</span>shipped</a></li>
+                                    <!-- <li><a class="dropdown-item" href="{% url 'seller_update_order_status' orderdata.id  'delivered' %}"><span class="badge badge-success me-2">&nbsp;</span>delivered</a></li> -->
+                                </ul>
+                            </div>
+                            <form action="{% url 'cancel_order_seller' %}" method="POST">
+                                    {% csrf_token %}
+                                   
+                                     <input type="hidden" name="order_id" value="{{orderdata.id}}">
+                                            <button type="submit"
+                                                   class="btn btn-danger px-3 fw-medium border-0 shadow-sm"
+                                                    style="background-color:#dc3545;color:white;border:none;">
+                                                Cancel Order
+                                            </button>                                
+                                </form>
+                            <!-- <button class="btn btn-danger px-3 fw-medium border-0 shadow-sm" type="submit"><i class="bi bi-trash me-2"></i>Cancel Order</button> -->
+                            <!-- <button class="btn btn-danger px-3 fw-medium border-0 shadow-sm"><i class="bi bi-trash me-2"></i>Delete</button> -->
+                        </div>
+                    </div>
+                </div>
+    {% endif %}
+
+                <div class="row g-4">
+                    <!-- Order Items -->
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                            <div class="card-header bg-white border-bottom p-4">
+                                <h5 class="fw-bold m-0">Items in Order</h5>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table align-middle mb-0">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th class="px-4 py-3 border-0">Product</th>
+                                                <th class="px-4 py-3 border-0">Price</th>
+                                                <th class="px-4 py-3 border-0 text-center">Qty</th>
+                                                <th class="px-4 py-3 border-0 text-end">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for i in orderdetails %}
+                                            <tr>
+                                                <td class="px-4 py-4">
+                                                    <div class="d-flex align-items-center gap-3">
+                                                        <div class="bg-light rounded p-2 d-flex justify-content-center align-items-center" style="width: 50px; height: 50px;">
+                                                            <i class="bi bi-laptop text-secondary fs-4"></i>
+                                                        </div>
+                                                        <div>
+                                                            <h6 class="mb-1 fw-bold">{{i.product}}</h6>
+                                                            <!-- <span class="text-muted small">SKU: LPT-009</span> -->
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="px-4 py-4 fw-medium text-dark">{{i.price}}</td>
+                                                <td class="px-4 py-4 text-center fw-medium">{{i.quantity}}</td>
+                                                <td class="px-4 py-4 text-end fw-bold text-dark">{{i.subtotal}}</td>
+                                            </tr>
+                                            
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-light border-0 p-4">
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-6">
+                                        <!-- <div class="d-flex justify-content-between mb-2">
+                                            <span class="text-muted">Subtotal:</span>
+                                            <span class="fw-medium text-dark">{{orderdetails.subtotal}}</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="text-muted">Tax (10%):</span>
+                                            <span class="fw-medium text-dark">$169.70</span>
+                                        </div>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <span class="text-muted">Shipping:</span>
+                                            <span class="fw-medium text-dark">$15.00</span>
+                                        </div> -->
+                                        <hr>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <span class="fw-bold fs-5">Total:</span>
+                                            <span class="fw-bold fs-4 text-primary-custom">{{orderdata.totalpayment}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Details Sidebar -->
+                    <div class="col-lg-4">
+                        <!-- Customer Info -->
+                        <div class="card border-0 shadow-sm rounded-4 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-4">Billing Details</h5>
+                                <div class="d-flex align-items-center mb-4">
+                                    <!-- <div class="avatar bg-secondary text-white rounded-circle me-3 d-flex justify-content-center align-items-center fw-bold fs-5" style="width: 50px; height: 50px;">{{orderdata.firstname }}</div> -->
+                                    <div>
+                                        <h6 class="mb-0 fw-bold">{{orderdata.firstname}}</h6>
+                                        <!-- <span class="text-muted small">Customer since 2024</span> -->
+                                    </div>
+                                </div>
+                                <div class="mb-3 d-flex gap-2">
+                                    <i class="bi bi-envelope text-muted"></i>
+                                    <span class="text-dark">{{orderdata.email}}</span>
+                                </div>
+                                <div class="mb-3 d-flex gap-2">
+                                    <i class="bi bi-telephone text-muted"></i>
+                                    <span class="text-dark">{{orderdata.mobile}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shipping Info -->
+                        <div class="card border-0 shadow-sm rounded-4 mb-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3">Shipping Address</h5>
+                                <p class="text-dark mb-1">{{orderdata.shipping_firstname}}  {{orderdata.shipping_lastname}}</p>
+                                <p class="text-muted mb-1">{{orderdata.shipping_address}}</p>
+                                <p class="text-muted mb-1">{{orderdata.shipping_city}},{{orderdata.shipping_pincode}}</p>
+                                <p class="text-muted mb-0">{{orderdata.shipping_state}}  {{orderdata.shipping_country}}</p>
+                                <p class="text-muted mb-0">{{orderdata.shipping_mobile}}</p>
+                                <p class="text-muted mb-0">{{orderdata.shipping_email}} </p>
+
+                            </div>
+                        </div>
+                        
+                        <!-- Payment Info -->
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-3">Payment Method</h5>
+                                <div class="d-flex align-items-center p-3 border rounded-3 bg-light">
+                                    <i class="bi bi-credit-card-2-front fs-3 text-primary-custom me-3"></i>
+                                    <div>
+                                        <p class="mb-0 fw-bold">{{paymentdata.amount}}</p>
+                                        <p class="mb-0 text-muted small">{{paymentdata.payment_method}}</p>
+                                        <p class="mb-0 text-muted small">{{paymentdata.status}}</p>
+                                        <p class="mb-0 text-muted small">{{paymentdata.created_at}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

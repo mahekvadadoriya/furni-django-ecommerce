@@ -1,0 +1,114 @@
+{% extends 'seller_base.html' %}
+{%  load static %}
+{% block content %}
+		
+
+     {% if productdetails %}
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="w-100" style="overflow-y: auto; height: 100vh;">
+            <div class="container-fluid p-4 p-md-5">
+                
+                <div class="mb-4">
+                    <a href=" {% url 'seller_products' %}" class="text-decoration-none text-muted mb-3 d-inline-block"><i class="bi bi-arrow-left me-2"></i>Back to Products</a>
+                    
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <h2 class="fw-bold page-title m-0">{{productdetails.name}}</h2>
+                            <span class="badge bg-success bg-opacity-10 text-success px-3 py-2 rounded-pill fs-6"><i class="bi bi-check-circle-fill me-1"></i> In Stock ({{productdetails.stock}})</span>
+                        </div>
+                        
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'seller_edit_product' productdetails.id%}" class="btn btn-primary-custom px-4 fw-medium shadow-sm" title="Edit"><i class="bi bi-pencil text-primary"></i>Edit Product</a>
+
+                            <!-- <form action="{% url 'seller_edit_product' productdetails.id%}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="productid" value="{{productdetails.id}}">
+                                <button type="submit" name="editproduct" class="btn btn-primary-custom px-4 fw-medium shadow-sm"><i class="bi bi-pencil me-2"></i>Edit Product</button>
+                            </form> -->
+                            <form action="{% url 'seller_delete_product' %}" method="POST">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="productid" value="{{productdetails.id}}">
+                                                    <button type="submit" name="deleteproduct" class="btn btn-danger px-3 fw-medium shadow-sm" title="Delete"><i class="bi bi-trash"></i></button>
+                            </form>
+
+                            <!-- <button class="btn btn-danger px-3 fw-medium shadow-sm"><i class="bi bi-trash"></i></button> -->
+                        </div>
+                    </div>
+                </div>
+               
+                <div class="row g-4 mt-2">
+                    <!-- Left Column: Image -->
+                    <div class="col-lg-5">
+                        <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+                            <div class="card-body p-0 d-flex flex-column h-100 bg-light justify-content-center align-items-center" style="min-height: 400px;">
+                                <img src="{{productdetails.image.url}}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Details -->
+                    <div class="col-lg-7">
+                        <div class="card border-0 shadow-sm rounded-4 h-100">
+                            <div class="card-body p-4 p-md-5">
+                                <h3 class="fw-bold text-dark mb-2">{{productdetails.price}}</h3>
+                                <p class="text-muted small mb-4">&bull; {{productdetails.created_at}}</p>
+
+                                <h5 class="fw-bold mb-3">Description</h5>
+                                <p class="text-muted mb-4" style="line-height: 1.7;">
+                                    {{productdetails.description}}
+                                </p>
+
+                                <div class="row g-4 mb-4">
+                                    <!-- <div class="col-sm-6">
+                                        <div class="p-3 bg-light rounded-3">
+                                            <span class="text-muted small d-block mb-1">Category</span>
+                                            <span class="fw-bold text-dark">Electronics</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="p-3 bg-light rounded-3">
+                                            <span class="text-muted small d-block mb-1">Brand</span>
+                                            <span class="fw-bold text-dark">TechBrand</span>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-sm-6">
+                                        <div class="p-3 bg-light rounded-3">
+                                            <span class="text-muted small d-block mb-1">Current Stock</span>
+                                            <span class="fw-bold text-success">{{productdetails.stock}}</span>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-sm-6">
+                                        <div class="p-3 bg-light rounded-3">
+                                            <span class="text-muted small d-block mb-1">Total Sold</span>
+                                            <span class="fw-bold text-dark">128 Units manual</span>
+                                        </div>
+                                    </div> -->
+                                </div>
+                                
+                                <!-- <h5 class="fw-bold mb-3">Recent Orders Featuring This Product</h5> -->
+                                <!-- <div class="list-group list-group-flush border-top">
+                                    <a href="seller_order_details.html" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center py-3 border-bottom px-0">
+                                        <div>
+                                            <h6 class="mb-1 fw-bold">#ORD-001</h6>
+                                            <small class="text-muted">Oct 24, 2026 by John Doe</small>
+                                        </div>
+                                        <span class="badge badge-success rounded-pill">Delivered</span>
+                                    </a>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+       
+
+    </div>
+     {% endif %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+{% endblock %}

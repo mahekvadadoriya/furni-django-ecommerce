@@ -1,0 +1,123 @@
+{% load static %}
+
+
+<!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="{% url 'home' %}">Furni<span>.</span></a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<!-- <form class="d-flex mx-3" action="{% url 'shop' %}" method="GET">
+
+					<input
+						class="form-control"
+						type="search"
+						name="search"
+						placeholder="Search furniture..."
+						value="{{ request.GET.search|default:'' }}"
+					>
+
+					<button class="btn btn-secondary ms-2" type="submit">
+
+						<i class="bi bi-search">Search</i>
+
+					</button>
+
+				</form> -->
+
+				<div class="collapse navbar-collapse" id="navbarsFurni">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+							<a class="nav-link" href="{% url 'home' %}">Home</a>
+						</li>
+
+						<li class="nav-item {% if request.resolver_match.url_name == 'shop' %}active{% endif %}">
+							<a class="nav-link" href="{% url 'shop' %}">Shop</a>
+						</li>
+
+						<li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+							<a class="nav-link" href="{% url 'about' %}">About us</a>
+						</li>
+
+						<li class="nav-item {% if request.resolver_match.url_name == 'services' %}active{% endif %}">
+							<a class="nav-link" href="{% url 'services' %}">Services</a>
+						</li>
+
+						<li class="nav-item {% if request.resolver_match.url_name == 'blog' %}active{% endif %}">
+							<a class="nav-link" href="{% url 'blog' %}">Blog</a>
+						</li>
+
+						<li class="nav-item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+							<a class="nav-link" href="{% url 'contact' %}">Contact us</a>
+						</li>
+					</ul>
+
+					<ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+
+						{% if request.user.is_authenticated %}
+						
+						<li>
+							<a class="nav-link position-relative" href="{% url 'cart' %}">
+								<img src="{% static 'images/cart.svg' %}">
+								<span class="badge bg-danger rounded-pill">
+									{{ cartcount }}
+								</span>
+							</a>
+						</li>
+						<li class="nav-item dropdown">
+
+							<a class="nav-link dropdown-toggle"
+							href="#"
+							data-bs-toggle="dropdown">
+
+								<img src="{% static 'images/user.svg' %}">
+								{{ request.user.username }}
+
+							</a>
+							<ul class="dropdown-menu">
+
+								<li>
+									<a class="dropdown-item"
+									href="{% url 'myorders' %}">
+										My Orders
+									</a>
+								</li>
+
+								<li>
+									<a class="dropdown-item"
+									href="{% url 'logoutpage' %}">
+										Logout
+									</a>
+								</li>
+
+							</ul>
+
+						</li>
+
+						{% else %}
+
+						<li>
+							<a class="nav-link"
+							href="{% url 'loginpage' %}">
+								Login
+							</a>
+						</li>
+
+						<li>
+							<a class="nav-link"
+							href="{% url 'register' %}">
+								Register
+							</a>
+						</li>
+
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+			
+				
+		</nav>

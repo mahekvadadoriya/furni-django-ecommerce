@@ -1,0 +1,162 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Start Hero Section -->
+<div class="hero">
+  <div class="container">
+    <div class="row justify-content-between">
+      <div class="col-lg-5">
+        <div class="intro-excerpt">
+          <h1>Cart</h1>
+        </div>
+      </div>
+      <div class="col-lg-7">
+
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Hero Section -->
+
+{% if messages %}
+
+    {% for message in messages %}
+
+        <div class="alert alert-{{ message.tags }}">
+            {{ message }}
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+
+
+<div class="untree_co-section before-footer-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="site-blocks-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th class="product-thumbnail">Image</th>
+              <th class="product-name">Product</th>
+              <th class="product-price">Price</th>
+              <th class="product-quantity">Quantity</th>
+              <th class="product-total">Total</th>
+              <th class="product-remove">Remove</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for i in cartdata %}
+            <tr>
+
+              <td class="product-thumbnail">
+                <img src="{{i.product.image.url}}" alt="Image" class="img-fluid">
+              </td>
+              <td class="product-name">
+                <h2 class="h5 text-black">{{i.product.name}}</h2>
+              </td>
+              <td>{{i.product.price|floatformat:2}}</td>
+              <td>
+                <div class="input-group mb-3 d-flex align-items-center quantity-container" style="max-width: 120px;">
+
+                  <form action="{% url 'decreasequantity' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="cartid" value="{{i.id}}">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-outline-black decrease" type="submit">&minus;</button>
+                    </div>
+                  </form>
+
+
+                  <input type="text" class="form-control text-center quantity-amount" value="{{i.quantity}}"
+                    placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+
+                  <form action="{% url 'increasequantity' %}" method="POST">
+
+                    {% csrf_token %}
+
+                    <input type="hidden" name="cartid" value="{{i.id}}">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-black increase" type="submit">&plus;</button>
+                    </div>
+
+                  </form>
+                </div>
+
+              </td>
+              <td>{{i.subtotal}}</td>
+              <td>
+                <form action="{% url 'removecartproduct' %}" method="POST">
+                  {% csrf_token %}
+
+                    <input type="hidden" name="cartid" value="{{i.id}}">
+                    <button type="submit" class="btn btn-black btn-sm">
+                      X
+                    </button>
+                </form>
+              </td>
+            </tr>
+            {% endfor %}
+
+
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="col-md-6 pl-5">
+        <div class="row justify-content-end">
+          <div class="col-md-7">
+            <div class="row">
+              <div class="col-md-12 text-right border-bottom mb-5">
+                <h3 class="text-black h4 text-uppercase">Cart Totals</h3>
+              </div>
+            </div>
+
+            <div class="row mb-5">
+              <div class="col-md-6">
+                <span class="text-black">Total</span>
+              </div>
+              <div class="col-md-6 text-right">
+                <strong class="text-black">{{total}}</strong>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+
+                <!-- <form action="{% url 'checkout' %}">
+                  {% csrf_token %} -->
+                  <!-- <input type="hidden" name="cartid" value="{{cartdata.id}}"> -->
+                  <!-- <button class="btn btn-black btn-lg py-3 btn-block" type="submit" name="checkout">
+                      Proceed To Checkout
+                  </button> -->
+                <!-- </form> -->
+                <a href="{% url 'checkout' %}"
+                  class="btn btn-black btn-lg py-3 px-5">
+                    Proceed To Checkout
+                </a>              
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% endblock %}

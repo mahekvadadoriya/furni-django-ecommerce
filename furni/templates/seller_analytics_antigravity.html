@@ -1,0 +1,145 @@
+{% extends 'seller_base.html' %}
+{%  load static %}
+{% block content %}
+		
+
+
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="w-100" style="overflow-y: auto; height: 100vh;">
+            <div class="container-fluid p-4 p-md-5">
+                
+                <div class="d-flex justify-content-between align-items-center mb-5">
+                    <h2 class="fw-bold page-title m-0">Analytics</h2>
+                    <button class="btn btn-primary-custom"><i class="bi bi-download me-2"></i>Export Report</button>
+                </div>
+                
+                <!-- Chart Row -->
+                <div class="row g-4 mb-5">
+                    <!-- Profit & Loss Chart -->
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm rounded-4 h-100">
+                            <div class="card-header bg-white border-0 p-4 d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold m-0">Selling, Profit & Loss Overview</h5>
+                            </div>
+                            <div class="card-body p-4">
+                                <canvas id="financeChart" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sales Breakdown -->
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-4 h-100">
+                            <div class="card-header bg-white border-0 p-4 d-flex justify-content-between align-items-center">
+                                <h5 class="fw-bold m-0">Selling by Category</h5>
+                            </div>
+                            <div class="card-body p-4 d-flex justify-content-center align-items-center">
+                                <canvas id="salesChart" height="300"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Chart Scripts -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Profit/Loss/Selling Chart
+            const ctxFinance = document.getElementById('financeChart').getContext('2d');
+            new Chart(ctxFinance, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
+                    datasets: [
+                        {
+                            label: 'Selling',
+                            data: [15000, 18000, 14000, 22000, 25000, 21000, 28000, 30000, 26000, 32000],
+                            backgroundColor: '#3B5D50',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Profit',
+                            data: [4000, 5000, 3500, 6000, 7500, 5500, 8500, 9500, 7800, 10500],
+                            backgroundColor: '#28a745',
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Loss',
+                            data: [500, 200, 800, 300, 100, 400, 150, 0, 300, 100],
+                            backgroundColor: '#dc3545',
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 8
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#f0f0f0'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Sales Chart
+            const ctxSales = document.getElementById('salesChart').getContext('2d');
+            new Chart(ctxSales, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Electronics', 'Clothing', 'Accessories', 'Home & Garden'],
+                    datasets: [{
+                        data: [45, 25, 20, 10],
+                        backgroundColor: [
+                            '#3B5D50',
+                            '#f9c041',
+                            '#6c757d',
+                            '#e0e0e0'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                usePointStyle: true,
+                                boxWidth: 8
+                            }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+{% endblock %}

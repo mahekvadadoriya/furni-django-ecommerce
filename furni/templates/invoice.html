@@ -1,0 +1,892 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Invoice - {{ invoice_no }}</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+
+        body{
+
+            background:#eef2f5;
+
+            font-family:'Segoe UI',sans-serif;
+
+            color:#444;
+
+        }
+
+        .invoice{
+
+            max-width:1000px;
+
+            margin:40px auto;
+
+            background:#fff;
+
+            border-radius:15px;
+
+            overflow:hidden;
+
+            box-shadow:0 10px 30px rgba(0,0,0,.08);
+
+        }
+
+        .invoice-header{
+
+            background:#3b5d50;
+
+            color:white;
+
+            padding:40px;
+
+        }
+
+        .company-logo{
+
+            font-size:40px;
+
+            font-weight:700;
+
+            letter-spacing:2px;
+
+        }
+
+        .company-info{
+
+            font-size:14px;
+
+            line-height:1.8;
+
+            opacity:.95;
+
+        }
+
+        .invoice-title{
+
+            text-align:right;
+
+        }
+
+        .invoice-title h1{
+
+            font-size:42px;
+
+            font-weight:700;
+
+            margin-bottom:10px;
+
+        }
+
+        .invoice-title p{
+
+            margin:3px 0;
+
+        }
+
+        .section{
+
+            padding:35px 40px;
+
+        }
+
+        .section-title{
+
+            color:#3b5d50;
+
+            font-weight:700;
+
+            margin-bottom:18px;
+
+            font-size:18px;
+
+        }
+
+        .info-box{
+
+            background:#f8f9fa;
+
+            border-radius:12px;
+
+            padding:20px;
+
+            height:100%;
+
+        }
+
+        .info-box p{
+
+            margin-bottom:8px;
+
+        }
+
+        .table{
+
+            margin-top:20px;
+
+        }
+
+        .table thead{
+
+            background:#3b5d50;
+
+            color:white;
+
+        }
+
+        .table th{
+
+            padding:15px;
+
+            border:none;
+
+        }
+
+        .table td{
+
+            vertical-align:middle;
+
+            padding:15px;
+
+        }
+
+        .product-img{
+
+            width:70px;
+
+            height:70px;
+
+            object-fit:cover;
+
+            border-radius:8px;
+
+            border:1px solid #ddd;
+
+        }
+
+        .status{
+
+            padding:6px 15px;
+
+            border-radius:30px;
+
+            font-size:13px;
+
+            font-weight:600;
+
+        }
+
+        .status-delivered{
+
+            background:#d4edda;
+
+            color:#155724;
+
+        }
+
+        .status-processing{
+
+            background:#fff3cd;
+
+            color:#856404;
+
+        }
+
+        .status-shipped{
+
+            background:#cfe2ff;
+
+            color:#084298;
+
+        }
+
+        .status-canceled{
+
+            background:#f8d7da;
+
+            color:#842029;
+
+        }
+
+        .summary{
+
+            width:380px;
+
+            margin-left:auto;
+
+        }
+
+        .summary table{
+
+            width:100%;
+
+        }
+
+        .summary td{
+
+            padding:8px 0;
+
+        }
+
+        .grand-total{
+
+            font-size:22px;
+
+            font-weight:bold;
+
+            color:#3b5d50;
+
+            border-top:2px solid #ddd;
+
+            padding-top:15px;
+
+        }
+
+        .notes{
+
+            background:#f8f9fa;
+
+            border-left:5px solid #3b5d50;
+
+            padding:20px;
+
+            border-radius:8px;
+
+            margin-top:35px;
+
+        }
+
+        .footer{
+
+            text-align:center;
+
+            color:#777;
+
+            font-size:14px;
+
+            margin-top:35px;
+
+        }
+
+        .print-btn{
+
+            text-align:center;
+
+            margin:35px 0;
+
+        }
+
+        @media print{
+
+            body{
+
+                background:white;
+
+            }
+
+            .print-btn{
+
+                display:none;
+
+            }
+
+            .invoice{
+
+                box-shadow:none;
+
+                margin:0;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="invoice">
+
+<div class="invoice-header">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="company-logo">
+
+<!-- Later replace with logo -->
+
+Furni
+
+</div>
+
+<div class="company-info">
+
+<strong>Furni Furniture Pvt. Ltd.</strong><br>
+
+302, Shree Shyam Business Hub<br>
+
+VIP Road, Vesu<br>
+
+Surat, Gujarat - 395007<br>
+
+India<br><br>
+
+<i class="bi bi-envelope"></i>
+
+support@furni.in
+
+<br>
+
+<i class="bi bi-telephone"></i>
+
++91 98765 43210
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="invoice-title">
+
+<h1>INVOICE</h1>
+
+<p>
+
+<strong>Invoice No :</strong>
+
+{{ invoice_no }}
+
+</p>
+
+<p>
+
+<strong>Order ID :</strong>
+
+#{{ orderdata.id }}
+
+</p>
+
+<p>
+
+<strong>Date :</strong>
+
+{{ orderdata.created_at|date:"d M Y" }}
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="section">
+
+<div class="row">
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<h5 class="section-title">
+
+Billing Details
+
+</h5>
+
+<p>
+
+<strong>
+
+{{ orderdata.firstname }}
+
+{{ orderdata.lastname }}
+
+</strong>
+
+</p>
+
+<p>
+
+{{ orderdata.address }}
+
+</p>
+
+<p>
+
+{{ orderdata.city }},
+
+{{ orderdata.state }}
+
+</p>
+
+<p>
+
+{{ orderdata.country }}
+
+</p>
+
+<p>
+
+{{ orderdata.pincode }}
+
+</p>
+
+<p>
+
+Mobile :
+
+{{ orderdata.mobile }}
+
+</p>
+
+<p>
+
+Email :
+
+{{ orderdata.email }}
+
+</p>
+
+</div>
+
+</div>
+
+<div class="col-md-6">
+
+<div class="info-box">
+
+<h5 class="section-title">
+
+Payment Details
+
+</h5>
+
+<p>
+
+<strong>Payment Method :</strong>
+
+{{ paymentdata.paymentmode }}
+
+</p>
+
+<p>
+
+<strong>Transaction ID :</strong>
+
+{{ paymentdata.transactionid|default:"N/A" }}
+
+</p>
+
+<p>
+
+<strong>Order Status :</strong>
+
+{% if orderdata.status == "delivered" %}
+
+<span class="status status-delivered">
+
+Delivered
+
+</span>
+
+{% elif orderdata.status == "processing" %}
+
+<span class="status status-processing">
+
+Processing
+
+</span>
+
+{% elif orderdata.status == "shipped" %}
+
+<span class="status status-shipped">
+
+Shipped
+
+</span>
+
+{% else %}
+
+<span class="status status-canceled">
+
+Cancelled
+
+</span>
+
+{% endif %}
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<h4 class="section-title mt-5">
+
+Ordered Products
+
+</h4>
+
+<table class="table table-bordered">
+
+<thead>
+
+<tr>
+
+<th>#</th>
+
+<th>Product</th>
+
+<th>Price</th>
+
+<th>Qty</th>
+
+<th>Subtotal</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for i in orderdetails %}
+
+<tr>
+
+<td>
+
+{{ forloop.counter }}
+
+</td>
+
+<td>
+
+<div class="d-flex align-items-center">
+
+<img src="{{ i.product.image.url }}"
+class="product-img me-3">
+
+<div>
+
+<strong>
+
+{{ i.product.name }}
+
+</strong>
+
+<br>
+
+<small class="text-muted">
+
+Premium Furniture
+
+</small>
+
+</div>
+
+</div>
+
+</td>
+
+<td>
+
+₹{{ i.price }}
+
+</td>
+
+<td>
+
+{{ i.quantity }}
+
+</td>
+
+<td>
+
+₹{{ i.subtotal }}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+<div class="row mt-5">
+
+    <div class="col-lg-6">
+
+        <div class="notes">
+
+            <h5 class="mb-3 text-success">
+
+                <i class="bi bi-info-circle-fill"></i>
+
+                Notes
+
+            </h5>
+
+            <ul class="mb-0">
+
+                <li>
+                    Thank you for shopping with <strong>Furni Furniture</strong>.
+                </li>
+
+                <li>
+                    Goods once sold are subject to our return and refund policy.
+                </li>
+
+                <li>
+                    Please keep this invoice for warranty and future reference.
+                </li>
+
+                <li>
+                    This is a computer-generated invoice and does not require a signature.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+    <div class="col-lg-6">
+
+        <div class="summary">
+
+            <table>
+
+                <tr>
+
+                    <td>
+
+                        Subtotal
+
+                    </td>
+
+                    <td class="text-end">
+
+                        ₹ {{ subtotal }}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Shipping
+
+                    </td>
+
+                    <td class="text-end text-success">
+
+                        {% if shipping == 0 %}
+
+                            FREE
+
+                        {% else %}
+
+                            ₹ {{ shipping }}
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        Discount
+
+                    </td>
+
+                    <td class="text-end">
+
+                        ₹ {{ discount }}
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td>
+
+                        GST
+
+                    </td>
+
+                    <td class="text-end">
+
+                        Included
+
+                    </td>
+
+                </tr>
+
+                <tr>
+
+                    <td colspan="2">
+
+                        <hr>
+
+                    </td>
+
+                </tr>
+
+                <tr class="grand-total">
+
+                    <td>
+
+                        Grand Total
+
+                    </td>
+
+                    <td class="text-end">
+
+                        ₹ {{ grand_total }}
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<hr class="my-5">
+
+<div class="row align-items-center">
+
+    <div class="col-md-6">
+
+        <h5 class="text-success">
+
+            Thank You!
+
+        </h5>
+
+        <p class="mb-0">
+
+            We truly appreciate your purchase and hope you enjoy your new furniture.
+
+            We look forward to serving you again.
+
+        </p>
+
+    </div>
+
+    <div class="col-md-6 text-md-end mt-4 mt-md-0">
+
+        <h6>
+
+            Need Help?
+
+        </h6>
+
+        <p class="mb-1">
+
+            <i class="bi bi-envelope-fill text-success"></i>
+
+            support@furni.in
+
+        </p>
+
+        <p>
+
+            <i class="bi bi-telephone-fill text-success"></i>
+
+            +91 98765 43210
+
+        </p>
+
+    </div>
+
+</div>
+
+<div class="footer">
+
+    <hr>
+
+    <p>
+
+        © {{ orderdata.created_at|date:"Y" }}
+
+        <strong>Furni Furniture Pvt. Ltd.</strong>
+
+    </p>
+
+    <p>
+
+        Premium Furniture for Every Home
+
+    </p>
+
+</div>
+
+<div class="print-btn">
+
+    <button
+
+        class="btn btn-success btn-lg px-5"
+
+        onclick="window.print()"
+
+    >
+
+        <i class="bi bi-printer-fill me-2"></i>
+
+        Print Invoice
+
+    </button>
+
+    <a
+
+        href="{% url 'myorders' %}"
+
+        class="btn btn-outline-success btn-lg ms-2"
+
+    >
+
+        <i class="bi bi-arrow-left me-2"></i>
+
+        Back to Orders
+
+    </a>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

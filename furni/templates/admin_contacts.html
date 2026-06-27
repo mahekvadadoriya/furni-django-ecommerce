@@ -1,0 +1,113 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+{% block content %}
+
+<div id="page-content-wrapper" class="w-100">
+
+<div class="container-fluid p-4 p-md-5">
+
+<div class="d-flex justify-content-between align-items-center mb-5">
+
+<h2 class="fw-bold page-title">
+
+Contact Messages
+
+</h2>
+
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+
+<div class="table-responsive">
+
+<table class="table table-hover align-middle">
+
+<thead class="bg-light">
+
+<tr>
+
+<th>Name</th>
+
+<th>Email</th>
+
+<th>Message</th>
+
+<th>Date</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for i in contacts %}
+
+<tr>
+
+<td>
+
+{{ i.firstname }} {{ i.lastname }}
+
+</td>
+
+<td>
+
+{{ i.email }}
+
+</td>
+
+<td>
+
+{{ i.message|truncatechars:50 }}
+
+</td>
+
+<td>
+
+{{ i.created_at|date:"d M Y" }}
+
+</td>
+
+<td>
+
+<a
+href="{% url 'admin_contact_details' i.id %}"
+class="btn btn-sm btn-light rounded-circle shadow-sm">
+
+<i class="bi bi-eye text-primary"></i>
+
+</a>
+
+</td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+<td colspan="5" class="text-center">
+
+No Contact Messages Found
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+{% endblock %}

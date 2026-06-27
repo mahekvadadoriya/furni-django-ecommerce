@@ -1,0 +1,30 @@
+<div class="search-strip">
+
+    <div class="container">
+
+        <form action="{% url 'shop' %}" method="GET">
+
+            <div class="search-container">
+
+                <i class="fa fa-search search-icon"></i>
+
+                <input
+                    type="search"
+                    name="search"
+                    placeholder="Search furniture..."
+                    value="{{ request.GET.search|default:'' }}"
+                >
+
+                <button type="submit">
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>

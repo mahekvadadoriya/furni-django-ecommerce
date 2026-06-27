@@ -1,0 +1,186 @@
+<!-- /*
+* Bootstrap 5
+* Template Name: Furni
+* Template Author: Untree.co
+* Template URI: https://untree.co/
+* License: https://creativecommons.org/licenses/by/3.0/
+*/ -->
+{% extends 'base.html' %}
+{%  load static %}
+{% block content %}
+		
+
+		<!-- Start Hero Section -->
+			<div class="hero">
+				<div class="container">
+					<div class="row justify-content-between">
+						<div class="col-lg-5">
+							<div class="intro-excerpt">
+								<h1>Premium Furniture for Every Home</h1>
+								<form action="{% url 'shop' %}" method="GET" class="hero-search-form">
+
+ 					<p class="mb-4">Discover modern furniture crafted for comfort, elegance, and everyday living.</p>
+								<p><a href="{% url 'shop' %}" class="btn btn-secondary me-2">Shop Now</a><a href="{% url 'about' %}" class="btn btn-white-outline">Explore</a></p>
+							
+								
+							
+							</div>
+						</div>
+						<div class="col-lg-7">
+							<div class="hero-img-wrap">
+								<img src="{% static 'images/couch.png' %}" class="img-fluid">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		<!-- End Hero Section -->
+			{% if messages %}
+
+				{% for message in messages %}
+
+					<div class="alert alert-{{ message.tags }}">
+						{{ message }}
+					</div>
+
+				{% endfor %}
+
+			{% endif %}
+		<!-- Start Product Section -->
+		<div class="product-section">
+			<div class="container">
+				<!-- Start Column 1 -->
+					<!-- <div class="col-md-12 col-lg-3 mb-5 mb-lg-0">
+						<h2 class="mb-4 section-title">Crafted with excellent material.</h2>
+						<p class="mb-4">Donec vitae odio quis nisl dapibus malesuada. Nullam ac aliquet velit. Aliquam vulputate velit imperdiet dolor tempor tristique. </p>
+						<p><a href="{% url 'shop' %}" class="btn">Explore</a></p>
+					</div>  -->
+				<div class="row">
+
+					
+					<!-- End Column 1 -->
+
+
+						{% for i in products %}
+						
+						
+						<div class="col-12 col-md-4 col-lg-3 mb-5">
+							<div class="product-item" href="#">
+								<img src="{{i.image.url}}"
+     class="img-fluid product-thumbnail product-image-fixed">
+								<h3 class="product-title">{{i.name}}</h3>
+								<strong class="product-price">₹ {{i.price}}</strong>
+
+									<form action="{% url 'cart' %}" method="POST">
+										{% csrf_token %}
+											<input type="hidden" name="pid" value="{{i.id}}">
+											{% if i.stock > 0 %}
+
+												<button type="submit" class="icon-cross">
+													<img src="{% static 'images/cross.svg' %}" class="img-fluid">
+												</button>
+
+											{% else %}
+
+												<button
+													type="button"
+													class="btn btn-secondary"
+													disabled>
+
+													Out Of Stock
+
+												</button>
+
+											{% endif %}
+									</form>
+							</div>
+						</div> 
+							
+
+						
+					{% endfor %}
+		      		
+
+					
+
+				</div>
+			</div>
+		</div>
+		<!-- End Product Section -->
+
+		<!-- Start Why Choose Us Section -->
+		{% include 'partials/why_choose_us.html' %}
+		<!-- End Why Choose Us Section -->
+
+		<!-- Start We Help Section -->
+		{% include 'partials/help_design.html' %}
+		<!-- End We Help Section -->
+
+		<!-- Start Popular Product -->
+		<div class="popular-product">
+			
+			<div class="container">
+			
+				<div class="row">
+						<div class="text-center mb-5">
+					<h2 class="section-title">Customer Favorites</h2>
+					<p class="text-muted popular-subtitle">
+						Explore some of our best-selling furniture pieces, carefully crafted
+						to bring comfort, elegance, and style into your home.
+					</p>
+				</div>
+					<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+						<div class="product-item-sm d-flex">
+							<div class="thumbnail">
+								<img src="{% static 'images/product-1.png' %}" alt="Image" class="img-fluid">
+							</div>
+							<div class="pt-3">
+								<h3>Nordic Dining Chair</h3>
+								<p>Elegant upholstered dining chair designed for everyday comfort and modern interiors. </p>
+								<p><a href="{% url 'shop' %}">
+									View Collection -->
+								</a></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+						<div class="product-item-sm d-flex">
+							<div class="thumbnail">
+								<img src="{% static 'images/product-2.png' %}" alt="Image" class="img-fluid">
+							</div>
+							<div class="pt-3">
+								<h3>Nordic Lounge Chair</h3>
+								<p>Soft cushioned lounge chair perfect for relaxing in your living room.  </p>
+								<p><a href="{% url 'shop' %}">View Collection --></a></p>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-12 col-md-6 col-lg-4 mb-4 mb-lg-0">
+						<div class="product-item-sm d-flex">
+							<div class="thumbnail">
+								<img src="{% static 'images/product-3.png' %}" alt="Image" class="img-fluid">
+							</div>
+							<div class="pt-3">
+								<h3>Olive Dining Chair</h3>
+								<p>Contemporary dining chair combining comfort, durability, and timeless design. </p>
+								<p><a href="{% url 'shop' %}">View Collection --></a></p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!-- End Popular Product -->
+
+		<!-- Start Testimonial Slider -->
+		{% include 'partials/testimonials.html' %}
+		<!-- End Testimonial Slider -->
+
+		<!-- Start Blog Section -->
+		{% include 'partials/blog_section.html' %}
+		<!-- End Blog Section -->	
+
+{% endblock %}

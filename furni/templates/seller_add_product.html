@@ -1,0 +1,105 @@
+{% extends 'seller_base.html' %}
+{%  load static %}
+{% block content %}
+		
+
+  
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper" class="w-100" style="overflow-y: auto; height: 100vh;">
+            <div class="container-fluid p-4 p-md-5">
+                
+                <div class="mb-4">
+                    <a href=" {% url 'seller_products' %}" class="text-decoration-none text-muted mb-3 d-inline-block"><i class="bi bi-arrow-left me-2"></i>Back to Products</a>
+                    <h2 class="fw-bold page-title m-0">Add New Product</h2>
+                </div>
+
+                <div class="row g-4">
+                    <div class="col-lg-8">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body p-4 p-md-5">
+                                
+                                    <!-- Basic Info -->
+                                    <h5 class="fw-bold mb-4">Basic Information</h5>
+                                    
+                                    <div class="mb-4">
+                                        <label class="form-label fw-medium text-muted">Product Name</label>
+                                        <input type="text" class="form-control bg-light border-0 shadow-none p-3" name="name" placeholder="Enter product name">
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <label class="form-label fw-medium text-muted">Description</label>
+                                        <textarea class="form-control bg-light border-0 shadow-none p-3" rows="5" name="description" placeholder="Enter product description"></textarea>
+                                    </div>
+
+                                    <!-- <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-medium text-muted">Category</label>
+                                            <select class="form-select bg-light border-0 shadow-none p-3">
+                                                <option selected disabled>Select category</option>
+                                                <option>Electronics</option>
+                                                <option>Clothing</option>
+                                                <option>Accessories</option>
+                                                <option>Home & Garden</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mt-4 mt-md-0">
+                                            <label class="form-label fw-medium text-muted">Brand</label>
+                                            <input type="text" class="form-control bg-light border-0 shadow-none p-3" placeholder="Enter brand name">
+                                        </div>
+                                    </div> -->
+
+                                    <hr class="my-5 border-light">
+
+                                    <!-- Pricing & Inventory -->
+                                    <h5 class="fw-bold mb-4">Pricing & Inventory</h5>
+                                    
+                                    <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-medium text-muted">Price </label>
+                                            <input type="number" class="form-control bg-light border-0 shadow-none p-3" name="price" placeholder="0.00" step="0.01">
+                                        </div>
+                                        <div class="col-md-6 mt-4 mt-md-0">
+                                            <label class="form-label fw-medium text-muted">Stock Quantity</label>
+                                            <input type="number" class="form-control bg-light border-0 shadow-none p-3" name="stock" placeholder="0">
+                                        </div>
+                                    </div>
+
+                                  
+                               
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Images -->
+                    <div class="col-lg-4">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body p-4">
+                                <h5 class="fw-bold mb-4">Product Images</h5>
+                                
+                                <div class="upload-area bg-light rounded-4 border border-2 border-dashed text-center p-5 cursor-pointer hover-bg" onclick="document.getElementById('image').click();">
+                                    <i class="bi bi-cloud-arrow-up text-muted mb-3" style="font-size: 3rem;"></i>
+                                    <p class="mb-1 fw-medium">Click to upload or drag and drop</p>
+                                    <p class="text-muted small mb-0">SVG, PNG, JPG or GIF (max. 800x400px)</p>
+                                    <input type="file" id="image" name="image" style="display: none;" accept="image/*" multiple>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+                    </div>
+                      <div class="d-flex justify-content-end gap-3 mt-5">
+                                        <a href=" {% url 'seller_products' %}" class="btn btn-light px-4 py-2">Cancel</a>
+                                        <button type="submit" class="btn btn-primary-custom px-4 py-2">Save Product</button>
+                        </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    </form>
+    
+{% endblock %}

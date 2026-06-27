@@ -1,0 +1,225 @@
+{% extends 'admin_base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div id="page-content-wrapper" class="w-100">
+    <div class="container-fluid p-4 p-md-5">
+
+        <div class="d-flex justify-content-between align-items-center mb-5">
+            <div>
+                <h2 class="fw-bold page-title mb-1">Analytics Dashboard</h2>
+                <p class="text-muted mb-0">
+                    Sales and order performance overview
+                </p>
+            </div>
+
+            
+        </div>
+
+        <!-- Summary Cards -->
+
+        <div class="row g-4 mb-5">
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body">
+                        <small class="text-muted">Total Revenue</small>
+                        <h2 class="fw-bold mt-2">
+                            ₹ {{ total_sales }}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body">
+                        <small class="text-muted">Products Sold</small>
+                        <h2 class="fw-bold mt-2">
+                            {{ products_sold }}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body">
+                        <small class="text-muted">Total Orders</small>
+                        <h2 class="fw-bold mt-2">
+                            {{ total_orders }}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-3 col-md-6">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body">
+                        <small class="text-muted">Cancelled Orders</small>
+                        <h2 class="fw-bold mt-2 text-danger">
+                            {{ cancelled_orders }}
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Charts -->
+
+        <div class="row g-4">
+
+            <!-- Revenue Chart -->
+
+            <div class="col-lg-8">
+
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+
+                    <div class="card-header bg-white border-0 p-4">
+                        <h5 class="fw-bold mb-0">
+                            Monthly Revenue Trend
+                        </h5>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Order Status Chart -->
+
+            <div class="col-lg-4">
+
+                <div class="card border-0 shadow-sm rounded-4">
+
+                    <div class="card-header bg-white border-0 p-4">
+                        <h5 class="fw-bold mb-0">
+                            Monthly Orders
+                        </h5>
+                    </div>
+
+                    <div class="card-body p-4">
+                        <canvas id="ordersChart"></canvas>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <!-- Second Row -->
+        <!-- 
+        <div class="row g-4 mt-1">
+
+            <div class="col-lg-12">
+
+
+            </div>
+
+        </div> -->
+
+    </div>
+</div>
+
+<!-- Chart JS -->
+
+<script>
+    const monthlySales = {{ monthly_sales| safe }};
+    const monthlyOrders = {{ monthly_orders| safe }};
+
+    console.log(monthlySales);
+    console.log(monthlyOrders);
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+
+    /*
+    Replace all hardcoded data below
+    with values coming from Django context
+    */
+
+    const revenueChart = new Chart(
+        document.getElementById('revenueChart'),
+        {
+            type: 'line',
+            data: {
+                labels: [
+                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                ],
+                datasets: [{
+                    label: 'Revenue',
+                    data: monthlySales,
+                    borderColor: '#3B5D50',
+                    backgroundColor: '#3B5D50',
+                    tension: 0.4,
+                    fill: false
+                }]
+            }
+        }
+    );
+
+
+    // const orderChart = new Chart(
+    //     document.getElementById('orderChart'),
+    //     {
+    //         type: 'doughnut',
+    //         data: {
+    //             labels: [
+    //                 'Delivered',
+    //                 'Processing',
+    //                 'Shipped',
+    //                 'Cancelled'
+    //             ],
+    //             datasets: [{
+    //                 data: [
+    //                     40,
+    //                     10,
+    //                     15,
+    //                     5
+    //                 ],
+    //                 backgroundColor: [
+    //                     '#3B5D50',
+    //                     '#f9c041',
+    //                     '#0d6efd',
+    //                     '#dc3545'
+    //                 ]
+    //             }]
+    //         }
+    //     }
+    // );
+
+
+    const ordersChart = new Chart(
+        document.getElementById('ordersChart'),
+        {
+            type: 'bar',
+            data: {
+                labels: [
+                    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+                ],
+                datasets: [{
+                    label: 'Orders',
+                    data: monthlyOrders,
+                    backgroundColor: '#3B5D50',
+                    borderRadius: 8
+                }]
+            }
+        }
+    );
+
+</script>
+
+{% endblock %}

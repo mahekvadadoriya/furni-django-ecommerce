@@ -1,0 +1,153 @@
+{% extends 'seller_base.html' %}
+{% load static %}
+{% block content %}
+
+
+{% if productdetails %}
+
+
+<input type="hidden" name="productid" value="{{productdetails.id}}">
+<!-- Page Content -->
+<div id="page-content-wrapper" class="w-100" style="overflow-y: auto; height: 100vh;">
+    <div class="container-fluid p-4 p-md-5">
+
+        <div class="mb-4">
+            <a href=" {% url 'seller_products' %}" class="text-decoration-none text-muted mb-3 d-inline-block"><i
+                    class="bi bi-arrow-left me-2"></i>Back to Products</a>
+
+
+                    
+           
+        </div>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+
+    <h2 class="fw-bold page-title m-0">
+        Edit Product
+    </h2>
+
+    <form action="{% url 'seller_delete_product' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="productid" value="{{productdetails.id}}">
+
+        <button type="submit"
+                name="deleteproduct"
+                class="btn btn-danger px-3 fw-medium shadow-sm">
+            <i class="bi bi-trash me-2"></i>
+            Delete Product
+        </button>
+    </form>
+
+</div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class="row g-4">
+                <div class="col-lg-8">
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4 p-md-5">
+
+                            <!-- Basic Info -->
+                            <h5 class="fw-bold mb-4">Basic Information</h5>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-medium text-muted">Product Name</label>
+                                <input type="text" class="form-control bg-light border-0 shadow-none p-3" name="name"
+                                    value="{{productdetails.name}}">
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-medium text-muted">Description</label>
+                                <textarea class="form-control bg-light border-0 shadow-none p-3" name="description"
+                                    rows="5">{{productdetails.description}}</textarea>
+                            </div>
+
+                            <!-- <div class="row mb-4">
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-medium text-muted">Category</label>
+                                            <select class="form-select bg-light border-0 shadow-none p-3">
+                                                <option disabled>Select category</option>
+                                                <option selected>Electronics</option>
+                                                <option>Clothing</option>
+                                                <option>Accessories</option>
+                                                <option>Home & Garden</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-6 mt-4 mt-md-0">
+                                            <label class="form-label fw-medium text-muted">Brand</label>
+                                            <input type="text" class="form-control bg-light border-0 shadow-none p-3" value="TechBrand">
+                                        </div>
+                                    </div> -->
+
+                            <hr class="my-5 border-light">
+
+                            <!-- Pricing & Inventory -->
+                            <h5 class="fw-bold mb-4">Pricing & Inventory</h5>
+
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label class="form-label fw-medium text-muted">Price </label>
+                                    <input type="number" class="form-control bg-light border-0 shadow-none p-3"
+                                        name="price" value="{{productdetails.price}}" step="0.01">
+                                </div>
+                                <div class="col-md-6 mt-4 mt-md-0">
+                                    <label class="form-label fw-medium text-muted">Stock Quantity</label>
+                                    <input type="number" class="form-control bg-light border-0 shadow-none p-3"
+                                        name="stock" value="{{productdetails.stock}}">
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-end gap-3 mt-5">
+                                <a href=" {% url 'seller_products' %}" class="btn btn-light px-4 py-2">Cancel</a>
+                                <button type="submit" class="btn btn-primary-custom px-4 py-2">Save Changes</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Images -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 mb-4">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-4">Product Images</h5>
+
+                            <div class="position-relative mb-3 rounded-4 overflow-hidden bg-light d-flex justify-content-center align-items-center"
+                                style="height: 200px;">
+                                <img src="{{productdetails.image.url}}" alt="Image" class="img-fluid">
+                                <button class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 rounded-circle"
+                                    style="width: 30px; height: 30px; padding: 0;"><i class="bi bi-x"></i></button>
+                            </div>
+
+                            <div class="upload-area bg-light rounded-4 border border-2 border-dashed text-center p-4 cursor-pointer hover-bg"
+                                onclick="document.getElementById('image').click();">
+                                <i class="bi bi-plus-circle text-muted mb-2 fs-3"></i>
+                                <p class="mb-1 fw-medium small">Add more images</p>
+                                <input type="file" id="image" name="image" style="display: none;" accept="image/*"
+                                    multiple>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4 text-center">
+                            <form action="{% url 'seller_delete_product' %}" method="POST">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="productid" value="{{productdetails.id}}">
+                                    <button type="submit" name="deleteproduct" class="btn btn-outline-danger w-100 fw-medium" title="Delete"><i class="bi bi-trash me-2"></i>Delete Product</button>
+                                </form> -->
+
+                    <!-- <button class="btn btn-outline-danger w-100 fw-medium"><i class="bi bi-trash me-2"></i>Delete Product</button> -->
+                    <!-- </div>
+                    </div> -->
+                </div>
+        </form>
+    </div>
+</div>
+
+
+</div>
+
+
+{% endif %}
+
+{% endblock %}

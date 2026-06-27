@@ -1,0 +1,168 @@
+{% load static %}
+
+<footer class="footer-section">
+    <div class="container relative">
+
+        <div class="sofa-img">
+            <img src="{% static 'images/sofa.png' %}" alt="Sofa" class="img-fluid">
+        </div>
+
+        <!-- Newsletter -->
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="subscription-form">
+
+                    <h3 class="d-flex align-items-center">
+                        <span class="me-2">
+                            <img src="{% static 'images/envelope-outline.svg' %}" alt="Newsletter" class="img-fluid">
+                        </span>
+                        <span>Stay Updated with Furni</span>
+                    </h3>
+
+                    <p class="mb-4">
+                        Subscribe to receive exclusive offers, new arrivals, furniture trends, and interior design inspiration directly in your inbox.
+                    </p>
+
+                    <form action="#" method="POST" class="row g-3">
+                        {% csrf_token %}
+
+                        <div class="col-md-4 col-12">
+                            <input type="text" class="form-control" placeholder="Your Name">
+                        </div>
+
+                        <div class="col-md-5 col-12">
+                            <input type="email" class="form-control" placeholder="Your Email Address">
+                        </div>
+
+                        <div class="col-md-2 col-12">
+                            <button class="btn btn-primary w-100">
+                                <span class="fa fa-paper-plane"></span>
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Links -->
+        <div class="row g-5 mb-5">
+
+            <div class="col-lg-4">
+
+                <div class="mb-4 footer-logo-wrap">
+                    <a href="{% url 'home' %}" class="footer-logo">
+                        Furni<span>.</span>
+                    </a>
+                </div>
+
+                <p class="mb-4">
+                    Furni offers premium-quality furniture designed to bring comfort, style, and functionality into every home. We combine modern craftsmanship with timeless elegance to create spaces you'll love.
+                </p>
+
+                <ul class="list-unstyled custom-social">
+                    <li><a href="#"><span class="fa fa-brands fa-facebook-f"></span></a></li>
+                    <li><a href="#"><span class="fa fa-brands fa-instagram"></span></a></li>
+                    <li><a href="#"><span class="fa fa-brands fa-twitter"></span></a></li>
+                    <li><a href="#"><span class="fa fa-brands fa-linkedin"></span></a></li>
+                </ul>
+
+            </div>
+
+            <div class="col-lg-8">
+
+                <div class="row links-wrap">
+
+                    <!-- Company -->
+                    <div class="col-6 col-sm-6 col-md-3">
+                        <h6 class="mb-3">Company</h6>
+
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'about' %}">About Us</a></li>
+                            <li><a href="{% url 'services' %}">Our Services</a></li>
+                            <li><a href="{% url 'blog' %}">Blog</a></li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Customer -->
+                    <!-- <div class="col-6 col-sm-6 col-md-3">
+                        <h6 class="mb-3">Customer Care</h6>
+
+                        <ul class="list-unstyled">
+                            <li><a href="#">Help Center</a></li>
+                            <li><a href="#">Shipping Info</a></li>
+                            <li><a href="#">Returns & Refunds</a></li>
+                            <li><a href="#">Track Your Order</a></li>
+                        </ul>
+                    </div> -->
+
+                    <!-- Categories -->
+                    <!-- <div class="col-6 col-sm-6 col-md-3">
+                        <h6 class="mb-3">Categories</h6>
+
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'shop' %}">Living Room</a></li>
+                            <li><a href="{% url 'shop' %}">Bedroom</a></li>
+                            <li><a href="{% url 'shop' %}">Dining Room</a></li>
+                            <li><a href="{% url 'shop' %}">Office Furniture</a></li>
+                        </ul> -->
+                    <!-- </div> -->
+
+                    <!-- Account -->
+                    <div class="col-6 col-sm-6 col-md-3">
+                        <h6 class="mb-3">My Account</h6>
+
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'loginpage' %}">Login</a></li>
+                            <li><a href="{% url 'register' %}">Register</a></li>
+                            <li><a href="{% url 'cart' %}">Shopping Cart</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Copyright -->
+        <div class="border-top copyright">
+
+            <div class="row pt-4">
+
+                <div class="col-lg-6">
+
+                    <p class="mb-2 text-center text-lg-start">
+                        &copy;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        Furni. All Rights Reserved.
+                    </p>
+
+                </div>
+
+                <div class="col-lg-6 text-center text-lg-end">
+
+                    <ul class="list-unstyled d-inline-flex ms-auto">
+
+                        <li class="me-4">
+                            <a href="#">Terms &amp; Conditions</a>
+                        </li>
+
+                        <li>
+                            <a href="#">Privacy Policy</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</footer>
