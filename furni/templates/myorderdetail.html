@@ -263,7 +263,7 @@
 
                 {% if orderdata.status == "pending" %}
 
-                <form action="{% url 'cancle_order_user' %}"
+                <form action="{% url 'cancel_order_user' %}"
                       method="POST">
 
                     {% csrf_token %}

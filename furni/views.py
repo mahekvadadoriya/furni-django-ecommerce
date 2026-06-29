@@ -1074,7 +1074,7 @@ def seller_delete_product(request):
 def seller_orders(request):
     sellerobj=seller.objects.get(user=request.user)
 
-    orders=order.objects.filter(orderdetail__product__seller=sellerobj).order_by('-id')
+    orders=order.objects.filter(orderdetail__product__seller=sellerobj).distinct().order_by('-id')
 
     search=request.GET.get('search','')
 
