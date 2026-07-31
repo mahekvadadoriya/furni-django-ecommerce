@@ -211,6 +211,7 @@ def removecartproduct(request):
         cartproduct=Cart.objects.get(id=cartid)
 
         cartproduct.delete()
+        print("----")
 
     return redirect('cart')
 
