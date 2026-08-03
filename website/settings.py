@@ -124,7 +124,7 @@ STATIC_URL = 'static/'
 
 STATICFILES_DIRS=[BASE_DIR /'furni'/'static']
 
-
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 #for media url for getting images from databases
 
