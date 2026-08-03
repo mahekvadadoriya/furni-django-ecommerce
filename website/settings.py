@@ -24,7 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0&g&ua2q0@rs2p4t25om*^d*ih3qmiji$s090ie!l3lv!#e!$y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = True
+DEBUG=False
 
 ALLOWED_HOSTS = [
      "127.0.0.1",
@@ -88,6 +89,20 @@ DATABASES = {
     )
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'furni',
+#         'USER':'postgres',
+#         'PASSWORD':'root',
+#         'HOST':'localhost',
+#         'PORT':'5432',
+#     }
+# }
+
+
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
@@ -132,7 +147,7 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 #for media url for getting images from databases
 
-MEDIA_URL='media/'
+MEDIA_URL='/media/'
 MEDIA_ROOT=BASE_DIR /'media'
 
 
