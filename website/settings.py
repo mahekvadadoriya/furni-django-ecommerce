@@ -9,7 +9,9 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 from pathlib import Path
 import dj_database_url
 import os
@@ -24,8 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0&g&ua2q0@rs2p4t25om*^d*ih3qmiji$s090ie!l3lv!#e!$y'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-# DEBUG=False
+# DEBUG = True
+DEBUG=False
 
 ALLOWED_HOSTS = [
      "127.0.0.1",
@@ -43,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'cloudinary',
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'furni',
 ]
@@ -80,14 +84,19 @@ TEMPLATES = [
 WSGI_APPLICATION = 'website.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
+
 
 DATABASES = {
     "default": dj_database_url.parse(
         os.environ.get("DATABASE_URL")
     )
 }
+cloudinary.config(
+    cloud_name=os.getenv("kqxwosug"),
+    api_key=os.getenv("172927421311949"),
+    api_secret=os.getenv("nQLRXRkAq0XfiAcYcVqE63zcvr0"),
+    secure=True,
+)
 
 # DATABASES = {
 #     'default': {
@@ -147,8 +156,9 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 #for media url for getting images from databases
 
-MEDIA_URL='/media/'
-MEDIA_ROOT=BASE_DIR /'media'
+# MEDIA_URL='/media/'
+# MEDIA_ROOT=BASE_DIR /'media'
 
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 LOGIN_URL='loginpage'
