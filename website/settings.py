@@ -92,9 +92,9 @@ DATABASES = {
     )
 }
 cloudinary.config(
-    cloud_name=os.getenv("kqxwosug"),
-    api_key=os.getenv("172927421311949"),
-    api_secret=os.getenv("nQLRXRkAq0XfiAcYcVqE63zcvr0"),
+    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+    api_key=os.getenv("CLOUDINARY_API_KEY"),
+    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
     secure=True,
 )
 
@@ -153,12 +153,20 @@ STATICFILES_DIRS=[BASE_DIR /'furni'/'static']
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
 #for media url for getting images from databases
 
 # MEDIA_URL='/media/'
 # MEDIA_ROOT=BASE_DIR /'media'
 
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+# DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 LOGIN_URL='loginpage'
