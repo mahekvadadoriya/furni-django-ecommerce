@@ -26,14 +26,14 @@ def home(request):
     print("user  from user............................",request.user)
 
 
-    products=product.objects.all()
+    products=product.objects.filter(isactive=True).all()
     return render(request,'index.html',{'products':products})
 
 @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
 def shop(request):
 
-    products = product.objects.filter(stock__gt=0)
+    products = product.objects.filter(stock__gt=0,isactive=True)
 
     search = request.GET.get('search', '').strip()
 
