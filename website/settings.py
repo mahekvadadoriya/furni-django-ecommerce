@@ -9,9 +9,9 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
 from pathlib import Path
 import dj_database_url
 import os
@@ -45,15 +45,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'cloudinary',
-    'cloudinary_storage',
+    # 'cloudinary',
+    # 'cloudinary_storage',
     'django.contrib.staticfiles',
     'furni',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -101,12 +101,18 @@ else:
             "PORT": "5432",
         }
     }
-cloudinary.config(
-    cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
-    api_key=os.getenv("CLOUDINARY_API_KEY"),
-    api_secret=os.getenv("CLOUDINARY_API_SECRET"),
-    secure=True,
-)
+# cloudinary.config(
+#     cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
+#     api_key=os.getenv("CLOUDINARY_API_KEY"),
+#     api_secret=os.getenv("CLOUDINARY_API_SECRET"),
+#     secure=True,
+# )
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": "kqxwosug",
+    "API_KEY": "528971419193819",
+    "API_SECRET": "gZRroAoeq6cuhXCxQ_bemeegp-Q"
+}
 
 # DATABASES = {
 #     'default': {
@@ -157,28 +163,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = "/static/"
 
-STATICFILES_DIRS=[BASE_DIR /'furni'/'static']
+STATICFILES_DIRS = [
+    BASE_DIR / "furni" / "static",
+]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
-
-# STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-STATICFILES_STORAGE = "django.contrib.staticfiles.storage.StaticFilesStorage"
 
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
     },
     "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
     },
 }
-
 #for media url for getting images from databases
 
-# MEDIA_URL='/media/'
-# MEDIA_ROOT=BASE_DIR /'media'
+MEDIA_URL='/media/'
+MEDIA_ROOT=BASE_DIR /'media'
 
 # DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
