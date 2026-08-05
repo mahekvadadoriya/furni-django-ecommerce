@@ -978,37 +978,83 @@ def seller_product_details(request):
         print("Product details ........",productdetails)
     return render(request,'seller_product_details.html',{'productdetails':productdetails})
 
-
+import traceback
 @seller_required
 @cache_control(no_cache=True,must_revalidate=True,no_store=True)
 
+# def seller_add_product(request):
+#     print("request.......",request)
+#     print("User...........",request.user)
+
+#     seller_obj=seller.objects.get(user=request.user)
+#     print("1---------")
+#     if request.method=="POST":
+#         print("2------")
+#         name=request.POST['name']
+#         description=request.POST['description']
+#         price=request.POST['price']
+#         stock=request.POST['stock']
+#         image=request.FILES.get('image')
+#         print("image......",image)
+
+#         new_product=product(
+#             seller=seller_obj,
+#             name=name,
+#             description=description,
+#             price=price,
+#             stock=stock,
+#             image=image
+#         )   
+#         print("product........",new_product)
+
+#         new_product.save()
+
+
+#         print("New Product............",new_product)
+#         return redirect('seller_products')
+#     return render(request,'seller_add_product.html')
+
 def seller_add_product(request):
-    print("request.......",request)
-    print("User...........",request.user)
 
-    seller_obj=seller.objects.get(user=request.user)
-    if request.method=="POST":
-        name=request.POST['name']
-        description=request.POST['description']
-        price=request.POST['price']
-        stock=request.POST['stock']
-        image=request.FILES.get('image')
+    try:
 
-        new_product=product(
-            seller=seller_obj,
-            name=name,
-            description=description,
-            price=price,
-            stock=stock,
-            image=image
-        )
+        print("request", request)
+        print("user", request.user)
 
-        new_product.save()
+        seller_obj = seller.objects.get(user=request.user)
 
+        if request.method == "POST":
 
-        print("New Product............",new_product)
-        return redirect('seller_products')
-    return render(request,'seller_add_product.html')
+            print("POST reached")
+
+            name = request.POST["name"]
+            description = request.POST["description"]
+            price = request.POST["price"]
+            stock = request.POST["stock"]
+            image = request.FILES.get("image")
+
+            print(image)
+
+            new_product = product(
+                seller=seller_obj,
+                name=name,
+                description=description,
+                price=price,
+                stock=stock,
+                image=image,
+            )
+
+            new_product.save()
+
+            print("saved")
+
+            return redirect("seller_products")
+
+        return render(request, "seller_add_product.html")
+
+    except Exception:
+        traceback.print_exc()
+        raise
 
 
 @seller_required
