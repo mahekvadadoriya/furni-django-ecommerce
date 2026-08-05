@@ -75,6 +75,6 @@ urlpatterns=[
     path('admin_update_order_status/<int:id>/<str:status>/',views.admin_update_order_status,name='admin_update_order_status'),
 
 
-    path('<path:exception>/', views.pagenotfound,name='pagenotfound')
+    # path('<path:exception>/', views.pagenotfound,name='pagenotfound')
 
 ]
