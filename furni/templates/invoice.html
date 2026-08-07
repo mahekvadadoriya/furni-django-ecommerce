@@ -186,6 +186,10 @@
             font-weight:600;
 
         }
+        .status-pending{
+            background: #fef3c7;
+            color: #92400e;
+        }
 
         .status-delivered{
 
@@ -499,7 +503,15 @@ Payment Details
 
 <strong>Order Status :</strong>
 
-{% if orderdata.status == "delivered" %}
+{% if orderdata.status == "pending" %}
+
+<span class="status status-pending">
+
+Pending
+
+</span>
+
+{% elif orderdata.status == "delivered" %}
 
 <span class="status status-delivered">
 
