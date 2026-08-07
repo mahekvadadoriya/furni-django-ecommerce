@@ -110,8 +110,8 @@ else:
 
 CLOUDINARY_STORAGE = {
     "CLOUD_NAME": "kqxwosug",
-    "API_KEY": "528971419193819",
-    "API_SECRET": "gZRroAoeq6cuhXCxQ_bemeegp-Q"
+    "API_KEY": "821918325351338",
+    "API_SECRET": "Hn90qE9k14rHkCBRDuUaDYni6Nw"
 }
 
 # DATABASES = {
